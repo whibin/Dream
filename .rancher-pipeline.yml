@@ -1,21 +1,24 @@
 stages:
-  - name: Build
-    steps:
-      - runScriptConfig:
-          image: golang:1.15
-          shellScript: |-
-            mkdir -p /go/src/github.com/rancher
-            ln -s `pwd` /go/src/github.com/rancher/pipeline-example-go
-            cd /go/src/github.com/rancher/pipeline-example-go
-            go build -o bin/hello-server
-            go test -cover
-  - name: Publish
-    steps:
-      - publishImageConfig:
-          dockerfilePath: ./Dockerfile
-          buildContext: .
-          tag: dream:${CICD_EXECUTION_SEQUENCE}
-  - name: Deploy
-    steps:
-      - applyYamlConfig:
-          path: ./deployment.yaml
+- name: Build
+  steps:
+  - runScriptConfig:
+      image: golang:1.15
+      shellScript: |-
+        mkdir -p /go/src/github.com/rancher
+        ln -s `pwd` /go/src/github.com/rancher/pipeline-example-go
+        cd /go/src/github.com/rancher/pipeline-example-go
+        go build -o bin/hello-server
+        go test -cover
+        export GO111MODULE=on
+        export GOPROXY=https://goproxy.io
+- name: Publish
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: dream:${CICD_EXECUTION_SEQUENCE}
+- name: Deploy
+  steps:
+  - applyYamlConfig:
+      path: ./deployment.yaml
+notification: {}
