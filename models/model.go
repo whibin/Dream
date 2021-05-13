@@ -14,7 +14,7 @@ type Dream struct {
 	Like    string `json:"like"`
 	Draw    string `json:"draw"`
 	Sound   string `json:"sound"`
-	KeyWord string `json:"title" gorm:"column:key_word"`
+	KeyWord string `json:"keyWord" gorm:"column:key_word"`
 }
 
 func (Dream) TableName() string {
