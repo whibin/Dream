@@ -38,5 +38,5 @@ func CountByDreamType(uId, t string) (int64, bool) {
 }
 
 func CountByTime() ([]int64, bool) {
-	return nil, true
+	return nil, false
 }
