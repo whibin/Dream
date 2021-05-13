@@ -17,13 +17,13 @@ func LocalPathToUrl(path string, t int) string {
 
 func GetFirstDateOfMonth(d time.Time) time.Time {
 	d = d.AddDate(0, 0, -d.Day()+1)
-	return GetZeroTime(d)
+	return getZeroTime(d)
 }
 
 func GetLastDateOfMonth(d time.Time) time.Time {
-	return GetFirstDateOfMonth(d).AddDate(0, 1, -1)
+	return GetFirstDateOfMonth(d).AddDate(0, 1, 0)
 }
 
-func GetZeroTime(d time.Time) time.Time {
+func getZeroTime(d time.Time) time.Time {
 	return time.Date(d.Year(), d.Month(), d.Day(), 0, 0, 0, 0, d.Location())
 }

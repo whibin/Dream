@@ -20,6 +20,8 @@ func init() {
 		dream.POST("/save", controllers.Save)
 		dream.POST("/file/draw", controllers.DrawUpload)
 		dream.POST("/file/sound", controllers.SoundUpload)
+		dream.GET("/count/type/:uid/:type", controllers.CountByDreamType)
+		dream.GET("/count/time", controllers.CountByTime)
 	}
 
 }

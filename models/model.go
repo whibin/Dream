@@ -38,7 +38,7 @@ func CountByDreamType(uId, t string) (int64, error) {
 	return count, err
 }
 
-func CountByTime(start, end string) (int64, error) {
+func CountByTime(start, end int64) (int64, error) {
 	var count int64
 	err := DB.Where("time >= ? and time <= ?", start, end).Count(&count).Error
 	return count, err

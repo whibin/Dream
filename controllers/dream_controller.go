@@ -73,3 +73,37 @@ func SoundUpload(c *gin.Context) {
 		c.SaveUploadedFile(sound, drawPath)
 	}
 }
+
+func CountByDreamType(c *gin.Context) {
+	uid := c.Param("uid")
+	tid := c.Param("type")
+	count, ok := services.CountByDreamType(uid, tid)
+	if !ok {
+		c.JSON(http.StatusOK, common.ResultInfo{
+			Status:  false,
+			Message: "database error",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, common.ResultInfo{
+		Status:  true,
+		Message: "success",
+		Data:    count,
+	})
+}
+
+func CountByTime(c *gin.Context) {
+	counts, ok := services.CountByTime()
+	if !ok {
+		c.JSON(http.StatusOK, common.ResultInfo{
+			Status:  false,
+			Message: "database error",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, common.ResultInfo{
+		Status:  true,
+		Message: "success",
+		Data:    counts,
+	})
+}
