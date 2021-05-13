@@ -2,6 +2,7 @@ package utils
 
 import (
 	"Dream/conf"
+	"time"
 )
 
 func LocalPathToUrl(path string, t int) string {
@@ -12,4 +13,17 @@ func LocalPathToUrl(path string, t int) string {
 		return conf.Config.Net.PrefixUrl + "/sound/" + path
 	}
 	return ""
+}
+
+func GetFirstDateOfMonth(d time.Time) time.Time {
+	d = d.AddDate(0, 0, -d.Day()+1)
+	return GetZeroTime(d)
+}
+
+func GetLastDateOfMonth(d time.Time) time.Time {
+	return GetFirstDateOfMonth(d).AddDate(0, 1, -1)
+}
+
+func GetZeroTime(d time.Time) time.Time {
+	return time.Date(d.Year(), d.Month(), d.Day(), 0, 0, 0, 0, d.Location())
 }

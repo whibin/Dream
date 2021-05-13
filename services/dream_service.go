@@ -27,3 +27,16 @@ func Save(dream models.Dream) bool {
 	Log.WithField("Save", dream).Error(err)
 	return false
 }
+
+func CountByDreamType(uId, t string) (int64, bool) {
+	count, err := models.CountByDreamType(uId, t)
+	if err != nil {
+		Log.WithField("CountByDreamType", uId+"_"+t).Error(err)
+		return 0, false
+	}
+	return count, true
+}
+
+func CountByTime() ([]int64, bool) {
+	return nil, true
+}
