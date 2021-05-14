@@ -44,7 +44,7 @@ func Save(c *gin.Context) {
 		})
 		return
 	}
-	ok := services.Save(dream)
+	ok := services.SaveDream(dream)
 	if !ok {
 		c.JSON(http.StatusOK, common.ResultInfo{
 			Status:  false,
@@ -105,5 +105,44 @@ func CountByTime(c *gin.Context) {
 		Status:  true,
 		Message: "success",
 		Data:    counts,
+	})
+}
+
+func Delete(c *gin.Context) {
+	ok := services.DeleteDream(c.Param("uid"), c.Param("id"))
+	if !ok {
+		c.JSON(http.StatusOK, common.ResultInfo{
+			Status:  false,
+			Message: "database error",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, common.ResultInfo{
+		Status:  true,
+		Message: "success",
+	})
+}
+
+func Update(c *gin.Context) {
+	var dream models.Dream
+	err := c.ShouldBindJSON(&dream)
+	if err != nil {
+		c.JSON(http.StatusOK, common.ResultInfo{
+			Status:  false,
+			Message: "please input right format!",
+		})
+		return
+	}
+	ok := services.UpdateDream(dream)
+	if !ok {
+		c.JSON(http.StatusOK, common.ResultInfo{
+			Status:  false,
+			Message: "database error",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, common.ResultInfo{
+		Status:  true,
+		Message: "success",
 	})
 }

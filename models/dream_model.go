@@ -34,12 +34,20 @@ func Save(dream Dream) error {
 
 func CountByDreamType(uId, t string) (int64, error) {
 	var count int64
-	err := DB.Where("u_id = ? and type = ?", uId, t).Count(&count).Error
+	err := DB.Table("dream").Where("u_id = ? and type = ?", uId, t).Count(&count).Error
 	return count, err
 }
 
 func CountByTime(start, end int64) (int64, error) {
 	var count int64
-	err := DB.Where("time >= ? and time <= ?", start, end).Count(&count).Error
+	err := DB.Table("dream").Where("time >= ? and time <= ?", start, end).Count(&count).Error
 	return count, err
+}
+
+func Delete(uid, id string) error {
+	return DB.Where("id = ? and u_id = ?", id, uid).Delete(&Dream{}).Error
+}
+
+func (d *Dream) Update() error {
+	return DB.Model(&Dream{Id: d.Id, Uid: d.Uid}).Updates(d).Error
 }

@@ -22,6 +22,13 @@ func init() {
 		dream.POST("/file/sound", controllers.SoundUpload)
 		dream.GET("/count/type/:uid/:type", controllers.CountByDreamType)
 		dream.GET("/count/time", controllers.CountByTime)
+		dream.DELETE("/del/:uid/:id", controllers.Delete)
+		dream.PUT("/update", controllers.Update)
+
+		dream.GET("/openid", controllers.GetOpenId)
+		dream.POST("/user/register", controllers.Register)
+		dream.PUT("/user/update", controllers.UpdateUser)
+		dream.GET("/user", controllers.GetUser)
 	}
 
 }
