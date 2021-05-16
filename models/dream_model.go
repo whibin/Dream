@@ -11,7 +11,7 @@ type Dream struct {
 	Privacy string `json:"privacy"`
 	Time    string `json:"time"`
 	Type    int    `json:"type"`
-	Like    int    `json:"like"`
+	Like    int    `gorm:"column:likes" json:"like"`
 	Draw    string `json:"draw"`
 	Sound   string `json:"sound"`
 	KeyWord string `json:"keyWord" gorm:"column:key_word"`
@@ -50,4 +50,10 @@ func Delete(uid, id string) error {
 
 func (d *Dream) Update() error {
 	return DB.Model(&Dream{Id: d.Id, Uid: d.Uid}).Updates(d).Error
+}
+
+func GetDreamByTime() ([]Dream, error) {
+	var dreams []Dream
+	err := DB.Table("dream").Find(&dreams).Order("time desc").Error
+	return dreams, err
 }

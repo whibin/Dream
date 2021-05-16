@@ -70,3 +70,12 @@ func UpdateDream(dream models.Dream) bool {
 	}
 	return true
 }
+
+func GetDreamByTime() ([]models.Dream, bool) {
+	dreams, err := models.GetDreamByTime()
+	if err != nil {
+		fmt.Println(err)
+		return nil, false
+	}
+	return dreams, true
+}

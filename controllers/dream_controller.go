@@ -146,3 +146,19 @@ func Update(c *gin.Context) {
 		Message: "success",
 	})
 }
+
+func GetDreamByTime(c *gin.Context) {
+	dreams, ok := services.GetDreamByTime()
+	if !ok {
+		c.JSON(http.StatusOK, common.ResultInfo{
+			Status:  false,
+			Message: "database error",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, common.ResultInfo{
+		Status:  true,
+		Message: "success",
+		Data:    dreams,
+	})
+}

@@ -24,6 +24,7 @@ func init() {
 		dream.GET("/count/time", controllers.CountByTime)
 		dream.DELETE("/del/:uid/:id", controllers.Delete)
 		dream.PUT("/update", controllers.Update)
+		dream.GET("/bytime", controllers.GetDreamByTime)
 
 		dream.GET("/openid", controllers.GetOpenId)
 		dream.POST("/user/register", controllers.Register)
@@ -33,6 +34,8 @@ func init() {
 		dream.GET("/like/check/:userId/:dreamId", controllers.HasLike)
 		dream.GET("/like/:userId/:dreamId", controllers.Like)
 		dream.GET("/unlike/:userId/:dreamId", controllers.Unlike)
+		dream.GET("/like/amount/:dreamId", controllers.GetLikeAmount)
+		dream.GET("/like/dream", controllers.GetDreamByLike)
 	}
 
 }

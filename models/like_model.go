@@ -33,3 +33,9 @@ func HasLike(userId, dreamId string) (bool, error) {
 	}
 	return false, nil
 }
+
+func GetDreamByLike() ([]Dream, error) {
+	var dreams []Dream
+	err := DB.Table("dream").Order("likes desc").Find(&dreams).Error
+	return dreams, err
+}
