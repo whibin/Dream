@@ -29,6 +29,10 @@ func init() {
 		dream.POST("/user/register", controllers.Register)
 		dream.PUT("/user/update", controllers.UpdateUser)
 		dream.GET("/user", controllers.GetUser)
+
+		dream.GET("/like/check/:userId/:dreamId", controllers.HasLike)
+		dream.GET("/like/:userId/:dreamId", controllers.Like)
+		dream.GET("/unlike/:userId/:dreamId", controllers.Unlike)
 	}
 
 }

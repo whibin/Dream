@@ -15,7 +15,7 @@ func init() {
 	ip := conf.Config.DB.IP
 	port := conf.Config.DB.Port
 	database := conf.Config.DB.Database
-	configuration := conf.Config.DB.Conf
+	configuration := conf.Config.DB.Variables
 	dbUrl := username + ":" + password + "@" + "(" + ip + ":" + port + ")/" + database + "?" + configuration
 	var err error
 	DB, err = gorm.Open(mysql.Open(dbUrl))

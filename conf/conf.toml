@@ -1,14 +1,19 @@
-[database]
+[mysql]
     ip = "39.99.140.114"
     port = "3306"
     username = "root"
     password = "whibin"
     database = "dream"
-    conf = "charset=utf8&parseTime=True&loc=Local"
+    variables = "charset=utf8&parseTime=True&loc=Local"
+
+[redis]
+    ip = "39.99.140.114"
+    port = "6379"
+    password = "whibin"
 
 [http]
-    port = "8080"
-    prefix-url = "http://39.99.140.114"
+    web-port = "8080"
 
 [other]
+    prefix-url = "http://39.99.140.114"
     local-path-prefix = "/usr/local/dream"

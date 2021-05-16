@@ -61,7 +61,7 @@ func Save(c *gin.Context) {
 func DrawUpload(c *gin.Context) {
 	draw, _ := c.FormFile("draw")
 	if draw != nil {
-		drawPath := conf.Config.O.LocalPathPrefix + "/draw/" + draw.Filename
+		drawPath := conf.Config.Other.LocalPathPrefix + "/draw/" + draw.Filename
 		c.SaveUploadedFile(draw, drawPath)
 	}
 }
@@ -69,7 +69,7 @@ func DrawUpload(c *gin.Context) {
 func SoundUpload(c *gin.Context) {
 	sound, _ := c.FormFile("sound")
 	if sound != nil {
-		drawPath := conf.Config.O.LocalPathPrefix + "/sound/" + sound.Filename
+		drawPath := conf.Config.Other.LocalPathPrefix + "/sound/" + sound.Filename
 		c.SaveUploadedFile(sound, drawPath)
 	}
 }

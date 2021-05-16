@@ -7,26 +7,33 @@ import (
 )
 
 type Configuration struct {
-	DB  DataBase `toml:"database"`
-	Net Http     `toml:"http"`
-	O   Other    `toml:"other"`
+	DB    MySQL `toml:"mysql"`
+	Net   Http  `toml:"http"`
+	Other Other `toml:"other"`
+	Redis Redis `toml:"redis"`
 }
 
-type DataBase struct {
+type MySQL struct {
+	IP        string `toml:"ip"`
+	Port      string `toml:"port"`
+	Username  string `toml:"username"`
+	Password  string `toml:"password"`
+	Database  string `toml:"database"`
+	Variables string `toml:"variables"`
+}
+
+type Redis struct {
 	IP       string `toml:"ip"`
 	Port     string `toml:"port"`
-	Username string `toml:"username"`
 	Password string `toml:"password"`
-	Database string `toml:"database"`
-	Conf     string `toml:"conf"`
 }
 
 type Http struct {
-	Port      string `toml:"port"`
-	PrefixUrl string `toml:"prefix-url"`
+	Port string `toml:"web-port"`
 }
 
 type Other struct {
+	PrefixUrl       string `toml:"prefix-url"`
 	LocalPathPrefix string `toml:"local-path-prefix"`
 }
 
