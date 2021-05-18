@@ -54,6 +54,12 @@ func (d *Dream) Update() error {
 
 func GetDreamByTime() ([]Dream, error) {
 	var dreams []Dream
-	err := DB.Table("dream").Find(&dreams).Order("time desc").Error
+	err := DB.Table("dream").Order("time desc").Find(&dreams).Error
+	return dreams, err
+}
+
+func GetDreamByType(t string) ([]Dream, error) {
+	var dreams []Dream
+	err := DB.Table("dream").Where("type = ?", t).Order("time desc").Find(&dreams).Error
 	return dreams, err
 }

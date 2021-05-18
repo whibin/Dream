@@ -162,3 +162,20 @@ func GetDreamByTime(c *gin.Context) {
 		Data:    dreams,
 	})
 }
+
+func GetDreamByType(c *gin.Context) {
+	t := c.Param("type")
+	dreams, ok := services.GetDreamByType(t)
+	if !ok {
+		c.JSON(http.StatusOK, common.ResultInfo{
+			Status:  false,
+			Message: "database error",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, common.ResultInfo{
+		Status:  true,
+		Message: "success",
+		Data:    dreams,
+	})
+}

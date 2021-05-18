@@ -79,3 +79,12 @@ func GetDreamByTime() ([]models.Dream, bool) {
 	}
 	return dreams, true
 }
+
+func GetDreamByType(t string) ([]models.Dream, bool) {
+	dreams, err := models.GetDreamByType(t)
+	if err != nil {
+		fmt.Println(err)
+		return nil, false
+	}
+	return dreams, true
+}
