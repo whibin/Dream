@@ -2,8 +2,10 @@ package utils
 
 import (
 	"Dream/conf"
+	. "Dream/database"
 	"encoding/json"
 	"fmt"
+	"github.com/garyburd/redigo/redis"
 	"net/http"
 	"time"
 )
@@ -31,22 +33,20 @@ func getZeroTime(d time.Time) time.Time {
 	return time.Date(d.Year(), d.Month(), d.Day(), 0, 0, 0, 0, d.Location())
 }
 
-type openIdStruct struct {
-	Openid     string `json:"openid"`
-	SessionKey string `json:"session_key"`
-	Errcode    string `json:"errcode"`
-}
-
 func GetOpenId(appId, code, secret string) string {
+	openid, _ := redis.String(RedisDB.Do("GET", code))
+	if openid != "" {
+		return openid
+	}
 	s := "https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code"
 	url := fmt.Sprintf(s, appId, secret, code)
+	fmt.Println(url)
 	resp, _ := http.Get(url)
-	var bytes []byte
-	resp.Body.Read(bytes)
-	var openStruct openIdStruct
-	json.Unmarshal(bytes, &openStruct)
-	if openStruct.Errcode != "" {
-		return openStruct.Openid
-	}
-	return ""
+	var wxMap map[string]string
+	json.NewDecoder(resp.Body).Decode(&wxMap)
+	defer resp.Body.Close()
+	newOpenId := wxMap["openid"]
+	RedisDB.Do("SET", code, newOpenId)
+	RedisDB.Do("EXPIRE", code, 5*60)
+	return newOpenId
 }

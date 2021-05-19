@@ -4,6 +4,7 @@ import (
 	"Dream/common"
 	"Dream/conf"
 	"Dream/models"
+	"Dream/reptile"
 	"Dream/services"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -177,5 +178,66 @@ func GetDreamByType(c *gin.Context) {
 		Status:  true,
 		Message: "success",
 		Data:    dreams,
+	})
+}
+
+func ExplainDream(c *gin.Context) {
+	dreamExplains, err := reptile.ExplainDream(c.Query("keyword"))
+	if err != nil {
+		c.JSON(http.StatusOK, common.ResultInfo{
+			Status:  false,
+			Message: "explain fail",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, common.ResultInfo{
+		Status:  true,
+		Message: "success",
+		Data:    dreamExplains,
+	})
+}
+
+func CountDreamsByUser(c *gin.Context) {
+	uid := c.Param("uid")
+	count, ok := services.CountDreamsByUser(uid)
+	if !ok {
+		c.JSON(http.StatusOK, common.ResultInfo{
+			Status:  false,
+			Message: "database error",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, common.ResultInfo{
+		Status:  true,
+		Message: "success",
+		Data:    count,
+	})
+}
+
+func GetReceivedLikes(c *gin.Context) {
+	uid := c.Param("uid")
+	count, ok := services.GetReceivedLikes(uid)
+	if !ok {
+		c.JSON(http.StatusOK, common.ResultInfo{
+			Status:  false,
+			Message: "database error",
+		})
+		return
+	}
+	c.JSON(http.StatusOK, common.ResultInfo{
+		Status:  true,
+		Message: "success",
+		Data:    count,
+	})
+}
+
+func DreamMatch(c *gin.Context) {
+	uId, _ := strconv.Atoi(c.Param("uid"))
+	id, _ := strconv.Atoi(c.Param("id"))
+	dream, _ := services.DreamMatch(uId, id)
+	c.JSON(http.StatusOK, common.ResultInfo{
+		Status:  true,
+		Message: "success",
+		Data:    dream,
 	})
 }

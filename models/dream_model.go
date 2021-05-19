@@ -63,3 +63,16 @@ func GetDreamByType(t string) ([]Dream, error) {
 	err := DB.Table("dream").Where("type = ?", t).Order("time desc").Find(&dreams).Error
 	return dreams, err
 }
+
+func CountDreamsByUser(uId string) (int64, error) {
+	var count int64
+	err := DB.Table("dream").Where("u_id = ?").Count(&count).Error
+	return count, err
+}
+
+func DreamMatch(d string) (Dream, error) {
+	var dream Dream
+	sql := "select * from dream where match(dream) against(?)"
+	err := DB.Table("dream").Raw(sql, d).First(&dream).Error
+	return dream, err
+}

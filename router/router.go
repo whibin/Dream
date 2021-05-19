@@ -26,11 +26,14 @@ func init() {
 		dream.PUT("/update", controllers.Update)
 		dream.GET("/bytime", controllers.GetDreamByTime)
 		dream.GET("/bytype/:type", controllers.GetDreamByType)
+		dream.GET("/all/:uid", controllers.CountDreamsByUser)
+		dream.GET("/match/:uid/:id", controllers.DreamMatch)
 
 		dream.GET("/openid", controllers.GetOpenId)
 		dream.POST("/user/register", controllers.Register)
 		dream.PUT("/user/update", controllers.UpdateUser)
 		dream.GET("/user", controllers.GetUser)
+		dream.GET("/user/likes/:uid", controllers.GetReceivedLikes)
 
 		dream.GET("/like/check/:userId/:dreamId", controllers.HasLike)
 		dream.GET("/like/:userId/:dreamId", controllers.Like)
@@ -41,6 +44,8 @@ func init() {
 		dream.POST("/com/add", controllers.AddComment)
 		dream.DELETE("/com/del/:id", controllers.DeleteComment)
 		dream.GET("/com/:id", controllers.GetCommentsByDream)
+
+		dream.GET("/explain", controllers.ExplainDream)
 	}
 
 }
