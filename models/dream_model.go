@@ -66,7 +66,7 @@ func GetDreamByType(t string) ([]Dream, error) {
 
 func CountDreamsByUser(uId string) (int64, error) {
 	var count int64
-	err := DB.Table("dream").Where("u_id = ?").Count(&count).Error
+	err := DB.Table("dream").Where("u_id = ?", uId).Count(&count).Error
 	return count, err
 }
 
