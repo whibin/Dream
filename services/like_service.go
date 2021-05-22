@@ -4,9 +4,10 @@ import (
 	. "Dream/database"
 	"Dream/models"
 	"fmt"
-	"github.com/garyburd/redigo/redis"
 	"strconv"
 	"sync"
+
+	"github.com/garyburd/redigo/redis"
 )
 
 func HasLike(userId, dreamId string) (hasLike bool, isError bool) {

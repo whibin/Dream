@@ -1,10 +1,10 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"
-
 	"Dream/controllers"
 	"Dream/middlewares"
+
+	"github.com/gin-gonic/gin"
 )
 
 var Router *gin.Engine

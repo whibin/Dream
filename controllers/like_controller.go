@@ -3,8 +3,9 @@ package controllers
 import (
 	"Dream/common"
 	"Dream/services"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func HasLike(c *gin.Context) {

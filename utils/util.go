@@ -5,9 +5,10 @@ import (
 	. "Dream/database"
 	"encoding/json"
 	"fmt"
-	"github.com/garyburd/redigo/redis"
 	"net/http"
 	"time"
+
+	"github.com/garyburd/redigo/redis"
 )
 
 func LocalPathToUrl(path string, t int) string {

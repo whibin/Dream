@@ -2,8 +2,9 @@ package models
 
 import (
 	. "Dream/database"
-	"github.com/garyburd/redigo/redis"
 	"strconv"
+
+	"github.com/garyburd/redigo/redis"
 )
 
 func LikeAdd(userId, dreamId string) error {

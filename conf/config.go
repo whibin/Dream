@@ -1,9 +1,10 @@
 package conf
 
 import (
-	"github.com/BurntSushi/toml"
 	"io/ioutil"
 	"log"
+
+	"github.com/BurntSushi/toml"
 )
 
 type Configuration struct {
@@ -54,5 +55,4 @@ func init() {
 		log.Fatal("toml.Unmarshal error ", err)
 		return
 	}
-	return
 }

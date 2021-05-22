@@ -6,6 +6,10 @@ import (
 )
 
 func SaveUser(u models.User) bool {
+	c, _ := models.IsOpenIDExist(u.OpenId)
+	if c > int64(0) {
+		return true
+	}
 	err := u.Save()
 	if err != nil {
 		fmt.Println(err)
