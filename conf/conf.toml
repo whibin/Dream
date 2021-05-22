@@ -12,7 +12,7 @@
     password = "whibin"
 
 [http]
-    web-port = "8080"
+    web-port = "8081"
 
 [other]
     prefix-url = "http://39.99.140.114"

@@ -28,6 +28,6 @@ func GetUser(openId string) (User, error) {
 
 func IsOpenIDExist(openID string) (int64, error) {
 	var c int64
-	err := DB.Table("dream").Where("open_id = ?", openID).Count(&c).Error
+	err := DB.Table("user").Where("open_id = ?", openID).Count(&c).Error
 	return c, err
 }

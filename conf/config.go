@@ -1,3 +1,4 @@
+// Package conf 用于配置文件的调用
 package conf
 
 import (

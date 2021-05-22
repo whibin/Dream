@@ -9,7 +9,7 @@ type Dream struct {
 	Uid     int    `gorm:"column:u_id" json:"uid"`
 	Dream   string `json:"dream"`
 	Privacy string `json:"privacy"`
-	Time    string `json:"time"`
+	Time    int64  `json:"time"`
 	Type    int    `json:"type"`
 	Like    int    `gorm:"column:likes" json:"like"`
 	Draw    string `json:"draw"`

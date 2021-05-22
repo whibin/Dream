@@ -1,4 +1,4 @@
-package common
+package dto
 
 type ResultInfo struct {
 	Status  bool
