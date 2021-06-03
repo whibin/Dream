@@ -76,10 +76,10 @@ func SoundUpload(c *gin.Context) {
 	}
 }
 
+// CountByDreamType 统计用户梦境类型
 func CountByDreamType(c *gin.Context) {
 	uid := c.Param("uid")
-	tid := c.Param("type")
-	count, ok := services.CountByDreamType(uid, tid)
+	cb, ok := services.CountByDreamType(uid)
 	if !ok {
 		c.JSON(http.StatusOK, dto.ResultInfo{
 			Status:  false,
@@ -90,12 +90,13 @@ func CountByDreamType(c *gin.Context) {
 	c.JSON(http.StatusOK, dto.ResultInfo{
 		Status:  true,
 		Message: "success",
-		Data:    count,
+		Data:    cb,
 	})
 }
 
 func CountByTime(c *gin.Context) {
-	counts, ok := services.CountByTime()
+	uid := c.Param("uid")
+	counts, ok := services.CountByTime(uid)
 	if !ok {
 		c.JSON(http.StatusOK, dto.ResultInfo{
 			Status:  false,

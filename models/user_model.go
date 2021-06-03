@@ -31,3 +31,10 @@ func IsOpenIDExist(openID string) (int64, error) {
 	err := DB.Table("user").Where("open_id = ?", openID).Count(&c).Error
 	return c, err
 }
+
+// GetNickname 根据id获取用户昵称
+func GetNickname(uid int) string {
+	var s string
+	DB.Table("user").Where("id = ?", uid).Select("nickname").Find(&s)
+	return s
+}

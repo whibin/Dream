@@ -12,6 +12,9 @@ import (
 )
 
 func LocalPathToUrl(path string, t int) string {
+	if path == "" {
+		return ""
+	}
 	if t == 1 {
 		return conf.Config.Other.PrefixUrl + "/draw/" + path
 	}

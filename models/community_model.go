@@ -3,11 +3,13 @@ package models
 import . "Dream/database"
 
 type Chat struct {
-	Id      int    `json:"id"`
-	MainId  int    `json:"main_id"`
-	SendId  int    `json:"send_id"`
-	Content string `json:"content"`
-	DreamId int    `gorm:"column:d_id" json:"dream_id"`
+	Id           int    `json:"id"`
+	MainId       int    `json:"main_id"`
+	SendId       int    `json:"send_id"`
+	Content      string `json:"content"`
+	DreamId      int    `gorm:"column:d_id" json:"dream_id"`
+	MainNickname string `gorm:"-" json:"main_nickname"`
+	SendNickname string `gorm:"-" json:"send_nickname"`
 }
 
 func (Chat) TableName() string {

@@ -78,5 +78,12 @@ func GetDreamByLike() ([]models.Dream, bool) {
 		fmt.Println(err)
 		return nil, false
 	}
-	return dreams, true
+	var d []models.Dream
+	for _, dream := range dreams {
+		dream.Nickname = models.GetNickname(dream.Uid)
+		amount, _ := models.GetLikeAmount(strconv.Itoa(dream.Id))
+		dream.Like = amount
+		d = append(d, dream)
+	}
+	return d, true
 }

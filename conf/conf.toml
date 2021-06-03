@@ -4,7 +4,7 @@
     username = "root"
     password = "whibin"
     database = "dream"
-    variables = "charset=utf8&parseTime=True&loc=Local"
+    variables = "charset=utf8mb4&collation=utf8mb4_unicode_ci&parseTime=True&loc=Local"
 
 [redis]
     ip = "39.99.140.114"
@@ -12,8 +12,8 @@
     password = "whibin"
 
 [http]
-    web-port = "8081"
+    web-port = "8080"
 
 [other]
-    prefix-url = "http://39.99.140.114"
+    prefix-url = "https://common.qgailab.com"
     local-path-prefix = "/usr/local/dream"

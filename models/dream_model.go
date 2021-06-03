@@ -5,16 +5,17 @@ import (
 )
 
 type Dream struct {
-	Id      int    `json:"id"`
-	Uid     int    `gorm:"column:u_id" json:"uid"`
-	Dream   string `json:"dream"`
-	Privacy string `json:"privacy"`
-	Time    int64  `json:"time"`
-	Type    int    `json:"type"`
-	Like    int    `gorm:"column:likes" json:"like"`
-	Draw    string `json:"draw"`
-	Sound   string `json:"sound"`
-	KeyWord string `json:"keyWord" gorm:"column:key_word"`
+	Id       int    `json:"id"`
+	Uid      int    `gorm:"column:u_id" json:"uid"`
+	Dream    string `json:"dream"`
+	Privacy  string `json:"privacy"`
+	Time     int64  `json:"time"`
+	Type     int    `json:"type"`
+	Like     int    `gorm:"column:likes" json:"like"`
+	Draw     string `json:"draw"`
+	Sound    string `json:"sound"`
+	KeyWord  string `json:"keyWord" gorm:"column:key_word"`
+	Nickname string `gorm:"-" json:"nickname"`
 }
 
 func (Dream) TableName() string {
@@ -38,9 +39,9 @@ func CountByDreamType(uId, t string) (int64, error) {
 	return count, err
 }
 
-func CountByTime(start, end int64) (int64, error) {
+func CountByTime(start, end int64, uid string) (int64, error) {
 	var count int64
-	err := DB.Table("dream").Where("time >= ? and time <= ?", start, end).Count(&count).Error
+	err := DB.Table("dream").Where("time between ? and ? and u_id = ?", start, end, uid).Count(&count).Error
 	return count, err
 }
 
@@ -54,13 +55,13 @@ func (d *Dream) Update() error {
 
 func GetDreamByTime() ([]Dream, error) {
 	var dreams []Dream
-	err := DB.Table("dream").Order("time desc").Find(&dreams).Error
+	err := DB.Table("dream").Where("privacy = 'n'").Order("time desc").Find(&dreams).Error
 	return dreams, err
 }
 
 func GetDreamByType(t string) ([]Dream, error) {
 	var dreams []Dream
-	err := DB.Table("dream").Where("type = ?", t).Order("time desc").Find(&dreams).Error
+	err := DB.Table("dream").Where("type = ? and privacy = 'n'", t).Order("time desc").Find(&dreams).Error
 	return dreams, err
 }
 
@@ -70,9 +71,9 @@ func CountDreamsByUser(uId string) (int64, error) {
 	return count, err
 }
 
-func DreamMatch(d string) (Dream, error) {
+func DreamMatch(d string, uid int) (Dream, error) {
 	var dream Dream
-	sql := "select * from dream where match(dream) against(?)"
-	err := DB.Table("dream").Raw(sql, d).First(&dream).Error
+	sql := "select * from dream where match(dream) against(?) and u_id != ?"
+	err := DB.Table("dream").Raw(sql, d, uid).First(&dream).Error
 	return dream, err
 }
